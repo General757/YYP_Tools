@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--顶部snackbar-->
+    <dimen name="snackbar_padding_horizontal">8dp</dimen>
+    <dimen name="snackbar_padding_vertical">3dp</dimen>
+    <dimen name="snackbar_max_height">30dp</dimen>
+
+    <!--基本配置清单-->
+    <dimen name="title_base_height">44dp</dimen>
+    <dimen name="title_base_size">18sp</dimen>
+    <dimen name="notch_height_vivo">27dp</dimen>
+    <dimen name="notch_height_oppo">40dp</dimen>
+    <dimen name="footbar_base_height">49dp</dimen>
+
+    <!-- 字体统一大小 -->
+    <dimen name="font_size_2px">1.0sp</dimen>
+    <dimen name="font_size_4px">2.0sp</dimen>
+    <dimen name="font_size_6px">3.0sp</dimen>
+    <dimen name="font_size_8px">4.0sp</dimen>
+    <dimen name="font_size_10px">5.0sp</dimen>
+    <dimen name="font_size_12px">6.0sp</dimen>
+    <dimen name="font_size_14px">7.0sp</dimen>
+    <dimen name="font_size_16px">8.0sp</dimen>
+    <dimen name="font_size_18px">9.0sp</dimen>
+    <dimen name="font_size_20px">10.0sp</dimen>
+    <dimen name="font_size_22px">11.0sp</dimen>
+    <dimen name="font_size_24px">12.0sp</dimen>
+    <dimen name="font_size_26px">13.0sp</dimen>
+    <dimen name="font_size_28px">14.0sp</dimen>
+    <dimen name="font_size_30px">15.0sp</dimen>
+    <dimen name="font_size_32px">16.0sp</dimen>
+    <dimen name="font_size_34px">17.0sp</dimen>
+    <dimen name="font_size_36px">18.0sp</dimen>
+    <dimen name="font_size_38px">19.0sp</dimen>
+    <dimen name="font_size_40px">20.0sp</dimen>
+    <dimen name="font_size_42px">21.0sp</dimen>
+    <dimen name="font_size_44px">22.0sp</dimen>
+    <dimen name="font_size_46px">23.0sp</dimen>
+    <dimen name="font_size_48px">24.0sp</dimen>
+    <dimen name="font_size_50px">25.0sp</dimen>
+    <dimen name="font_size_52px">26.0sp</dimen>
+    <dimen name="font_size_54px">27.0sp</dimen>
+    <dimen name="font_size_56px">28.0sp</dimen>
+    <dimen name="font_size_58px">29.0sp</dimen>
+    <dimen name="font_size_60px">30.0sp</dimen>
+    <dimen name="font_size_62px">31.0sp</dimen>
+    <dimen name="font_size_64px">32.0sp</dimen>
+    <dimen name="font_size_66px">33.0sp</dimen>
+    <dimen name="font_size_68px">34.0sp</dimen>
+    <dimen name="font_size_70px">35.0sp</dimen>
+    <dimen name="font_size_72px">36.0sp</dimen>
+    <dimen name="font_size_74px">37.0sp</dimen>
+    <dimen name="font_size_76px">38.0sp</dimen>
+    <dimen name="font_size_78px">39.0sp</dimen>
+    <dimen name="font_size_80px">40.0sp</dimen>
+    <dimen name="font_size_82px">41.0sp</dimen>
+    <dimen name="font_size_84px">42.0sp</dimen>
+    <dimen name="font_size_86px">43.0sp</dimen>
+    <dimen name="font_size_88px">44.0sp</dimen>
+    <dimen name="font_size_90px">45.0sp</dimen>
+    <dimen name="font_size_92px">46.0sp</dimen>
+    <dimen name="font_size_94px">47.0sp</dimen>
+    <dimen name="font_size_96px">48.0sp</dimen>
+    <dimen name="font_size_98px">49.0sp</dimen>
+    <dimen name="font_size_100px">50.0sp</dimen>
+</resources>

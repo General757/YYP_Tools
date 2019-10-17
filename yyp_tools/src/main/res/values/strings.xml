@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">yyp_tools</string>
+
+    <string name="no_camera_permission">没有权限使用摄像头，请开启摄像头权限</string>
+    <string name="no_record_bluetooth_permission">没有权限使用蓝牙，请开启蓝牙权限</string>
+    <string name="no_record_audio_permission">没有权限使用录音，请开启录音权限</string>
+    <string name="no_read_phone_state_permission">没有读取用户数据的权限，请开启该权限</string>
+    <string name="no_write_external_storage_permission">没有文件写权限，请开启该权限</string>
+    <string name="no_read_external_storage_permission">没有文件读权限，请开启该权限</string>
+
+    <string name="permission_open_setting_activity_fail">打开权限设置页失败</string>
+
+    <!-- date 时间格式-->
+    <string name="date_format_just">刚刚</string>
+    <string name="date_format_minutes">%1s分钟前</string>
+    <string name="date_format_hour">%1s小时前</string>
+    <string name="date_format_yesterday">昨天</string>
+    <string name="date_format_day">MM月dd日</string>
+    <string name="date_format_year">yyyy年MM月dd日</string>
+
+    <!-- edit 提示-->
+    <string name="edit_unsupport_emoji">不能输入表情符号哦~</string>
+    <string name="edit_unsupport_special_chat">不能输入特殊字符哦~</string>
+    <string name="edit_unsupport_empty">不能输入空格哦~</string>
+    <string name="edit_unsupport_next_line">不能换行哦~</string>
+
 </resources>

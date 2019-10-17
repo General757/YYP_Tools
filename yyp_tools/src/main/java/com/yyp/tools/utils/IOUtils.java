@@ -871,5 +871,52 @@ public class IOUtils {
     public interface CopyListener {
         boolean onBytesCopied(int var1, int var2);
     }
+
+    public static String convertStreamToString(InputStream is) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException var13) {
+            ;
+        } finally {
+            try {
+                is.close();
+            } catch (IOException var12) {
+                ;
+            }
+
+        }
+
+        return sb.toString();
+    }
+
+    public static void closeStream(Closeable stream) {
+        try {
+            if (stream != null) {
+                stream.close();
+            }
+        } catch (IOException var2) {
+            ;
+        }
+
+    }
+
+    public static byte[] InputStreamToByte(InputStream is) throws IOException {
+        java.io.ByteArrayOutputStream bytestream = new java.io.ByteArrayOutputStream();
+
+        int ch;
+        while ((ch = is.read()) != -1) {
+            bytestream.write(ch);
+        }
+
+        byte[] byteData = bytestream.toByteArray();
+        bytestream.close();
+        return byteData;
+    }
 }
 

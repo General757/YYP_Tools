@@ -13,6 +13,7 @@ import java.io.IOException;
 
 /**
  * Created by Yan on 2019/10/11.
+ * 存储工具
  */
 
 public final class StorageUtils {
@@ -38,7 +39,7 @@ public final class StorageUtils {
 
         if (var2 == null) {
             String var3 = "/data/data/" + context.getPackageName() + "/cache/";
-            L.w("Can't define system cache directory! '%s' will be used.", new Object[]{var3});
+            LogUtils.w("Can't define system cache directory! '%s' will be used.", new Object[]{var3});
             var2 = new File(var3);
         }
 
@@ -61,7 +62,7 @@ public final class StorageUtils {
 
         if (var2 == null) {
             String var3 = "/data/data/" + context.getPackageName() + "/files/";
-            L.w("Can't define system cache directory! '%s' will be used.", new Object[]{var3});
+            LogUtils.w("Can't define system cache directory! '%s' will be used.", new Object[]{var3});
             var2 = new File(var3);
         }
 
@@ -96,14 +97,14 @@ public final class StorageUtils {
         File var2 = new File(new File(var1, context.getPackageName()), "cache");
         if (!var2.exists()) {
             if (!var2.mkdirs()) {
-                L.w("Unable to create external cache directory", new Object[0]);
+                LogUtils.w("Unable to create external cache directory", new Object[0]);
                 return null;
             }
 
             try {
                 (new File(var2, ".nomedia")).createNewFile();
             } catch (IOException var4) {
-                L.i("Can't create \".nomedia\" file in application external cache directory", new Object[0]);
+                LogUtils.i("Can't create \".nomedia\" file in application external cache directory", new Object[0]);
             }
         }
 
@@ -115,14 +116,14 @@ public final class StorageUtils {
         File var2 = new File(new File(var1, context.getPackageName()), "files");
         if (!var2.exists()) {
             if (!var2.mkdirs()) {
-                L.w("Unable to create external cache directory", new Object[0]);
+                LogUtils.w("Unable to create external cache directory", new Object[0]);
                 return null;
             }
 
             try {
                 (new File(var2, ".nomedia")).createNewFile();
             } catch (IOException var4) {
-                L.i("Can't create \".nomedia\" file in application external cache directory", new Object[0]);
+                LogUtils.i("Can't create \".nomedia\" file in application external cache directory", new Object[0]);
             }
         }
 

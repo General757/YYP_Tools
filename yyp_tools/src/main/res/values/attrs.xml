@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--自定义-矩形-->
+    <declare-styleable name="RectangleFrameLayout">
+        <attr name="rectangle_width" format="dimension|reference" /><!-- the width value of RectangleFrameLayout -->
+        <attr name="rectangle_height" format="dimension|reference" /><!-- the height value of RectangleFrameLayout -->
+    </declare-styleable>
+
+    <!--自定义-关注-->
+    <declare-styleable name="FollowAnimView">
+        <attr name="fa_bg_color" format="color|reference" />
+        <attr name="fa_bg_start_color" format="color|reference" />
+        <attr name="fa_bg_end_color" format="color|reference" />
+        <attr name="fa_line_width" format="dimension" />
+        <attr name="fa_duration" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="SnackbarLayout">
+        <attr name="android:maxWidth" />
+        <attr name="elevation" />
+        <attr name="maxActionInlineWidth" format="dimension" />
+    </declare-styleable>
+
+</resources>

@@ -9,13 +9,19 @@ import android.util.Log;
 
 /**
  * Created by Yan on 2019/10/11.
+ * 日志工具类
  */
 
-public final class L {
+public final class LogUtils {
+    private static volatile String LOG_TAG = "### LogUtils ";
     private static final String LOG_FORMAT = "%1$s\n%2$s";
-    private static volatile boolean DISABLED = false;
+    private static volatile boolean DISABLED = false;//false输出日志true禁止日志
 
-    private L() {
+    private LogUtils() {
+    }
+
+    public static void changeLogTag(String tag) {
+        LOG_TAG = tag;
     }
 
     public static void enableLogging() {
@@ -27,30 +33,34 @@ public final class L {
     }
 
     public static void d(String message, Object... args) {
-        log(3, (Throwable) null, message, args);
+        log(3, LOG_TAG, (Throwable) null, message, args);
     }
 
     public static void i(String message, Object... args) {
-        log(4, (Throwable) null, message, args);
+        log(4, LOG_TAG, (Throwable) null, message, args);
     }
 
     public static void w(String message, Object... args) {
-        log(5, (Throwable) null, message, args);
+        log(5, LOG_TAG, (Throwable) null, message, args);
     }
 
     public static void e(Throwable ex) {
-        log(6, ex, (String) null);
+        log(6, LOG_TAG, ex, (String) null);
     }
 
     public static void e(String message, Object... args) {
-        log(6, (Throwable) null, message, args);
+        log(6, LOG_TAG, (Throwable) null, message, args);
+    }
+
+    public static void e(String tag, String message, Object... args) {
+        log(6, tag, (Throwable) null, message, args);
     }
 
     public static void e(Throwable ex, String message, Object... args) {
-        log(6, ex, message, args);
+        log(6, LOG_TAG, ex, message, args);
     }
 
-    private static void log(int priority, Throwable ex, String message, Object... args) {
+    private static void log(int priority, String tag, Throwable ex, String message, Object... args) {
         if (!DISABLED) {
             if (args.length > 0) {
                 message = String.format(message, args);
@@ -62,10 +72,10 @@ public final class L {
             } else {
                 String var5 = message == null ? ex.getMessage() : message;
                 String var6 = Log.getStackTraceString(ex);
-                var4 = String.format("%1$s\n%2$s", var5, var6);
+                var4 = String.format(LOG_FORMAT, var5, var6);
             }
 
-            Log.println(priority, "VideoLoader", var4);
+            Log.println(priority, tag, var4);
         }
     }
 }
