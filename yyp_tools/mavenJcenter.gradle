@@ -1,0 +1,99 @@
+/**③.发布到JCenter*/
+//gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
+//./gradlew clean build bintrayUpload -PbintrayUser=admiralyan -PbintrayKey=2f98440f64266b47e59c0d2bbe3cf4f81a675cc1 -PdryRun=false
+//./gradlew clean build bintrayUpload -PdryRun=false
+
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+version = android.defaultConfig.versionName//版本号
+group = GROUP//groupid  一般为包名
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging PACKAGING
+                name DESCRIBE// 可选，项目名称
+                url SITE_URL //项目地址
+
+                // 软件开源协议
+                licenses {
+                    license {
+                        name LICENSE_NAME
+                        url LICENSE_URL
+                    }
+                }
+
+                //开发者信息
+                developers {
+                    developer {
+                        id DEVELOPER_ID
+                        name DEVELOPER_NAME
+                        email DEVELOPER_EMAIL
+                    }
+                }
+                scm {
+                    connection GIT_URL
+                    developerConnection GIT_URL
+                    url SITE_URL
+                }
+            }
+        }
+    }
+}
+
+// 生成jar包的task
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    options.encoding = "UTF-8"
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+// 生成javaDoc的jar，不需要修改。
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = PROJECT_REPO//发布到Bintray的maven库
+        name = PROJECT_NAME//发布到Bintray上的项目名字
+        userOrg = PROJECT_USERORG
+        websiteUrl = SITE_URL
+        vcsUrl = GIT_URL
+        licenses = ["Apache-2.0"]
+        publish = PROJECT_PUBLISH
+    }
+}
+
+
+
+
+

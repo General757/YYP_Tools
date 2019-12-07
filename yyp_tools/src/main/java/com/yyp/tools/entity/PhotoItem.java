@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  */
 public class PhotoItem implements Parcelable, Comparable<PhotoItem> {
 

@@ -5,6 +5,7 @@
 
 package com.yyp.tools.utils;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -32,39 +33,94 @@ public final class LogUtils {
         DISABLED = true;
     }
 
-    public static void d(String message, Object... args) {
-        log(3, LOG_TAG, (Throwable) null, message, args);
+    public static void v(String msg, Object... args) {
+        v(LOG_TAG, msg, args);
     }
 
-    public static void i(String message, Object... args) {
-        log(4, LOG_TAG, (Throwable) null, message, args);
+    public static void v(String tag, String msg, Object... args) {
+        v(tag, msg, null, args);
     }
 
-    public static void w(String message, Object... args) {
-        log(5, LOG_TAG, (Throwable) null, message, args);
+    public static void v(String msg, Throwable tr, Object... args) {
+        v(LOG_TAG, msg, tr, args);
     }
 
-    public static void e(Throwable ex) {
-        log(6, LOG_TAG, ex, (String) null);
+    public static void v(String tag, String msg, Throwable tr, Object... args) {
+        log(Log.VERBOSE, TextUtils.isEmpty(tag) ? LOG_TAG : tag, tr, msg, args);
     }
 
-    public static void e(String message, Object... args) {
-        log(6, LOG_TAG, (Throwable) null, message, args);
+    public static void d(String msg, Object... args) {
+        d(LOG_TAG, msg, args);
     }
 
-    public static void e(String tag, String message, Object... args) {
-        log(6, tag, (Throwable) null, message, args);
+    public static void d(String tag, String msg, Object... args) {
+        d(tag, msg, null, args);
     }
 
-    public static void e(Throwable ex, String message, Object... args) {
-        log(6, LOG_TAG, ex, message, args);
+    public static void d(String msg, Throwable tr, Object... args) {
+        d(LOG_TAG, msg, tr, args);
+    }
+
+    public static void d(String tag, String msg, Throwable tr, Object... args) {
+        log(Log.DEBUG, TextUtils.isEmpty(tag) ? LOG_TAG : tag, tr, msg, args);
+    }
+
+    public static void i(String msg, Object... args) {
+        i(LOG_TAG, msg, args);
+    }
+
+    public static void i(String tag, String msg, Object... args) {
+        i(tag, msg, null, args);
+    }
+
+    public static void i(String msg, Throwable tr, Object... args) {
+        i(LOG_TAG, msg, tr, args);
+    }
+
+    public static void i(String tag, String msg, Throwable tr, Object... args) {
+        log(Log.INFO, TextUtils.isEmpty(tag) ? LOG_TAG : tag, tr, msg, args);
+    }
+
+    public static void w(String msg, Object... args) {
+        w(LOG_TAG, msg, args);
+    }
+
+    public static void w(String tag, String msg, Object... args) {
+        w(tag, msg, null, args);
+    }
+
+    public static void w(Throwable tr, Object... args) {
+        w(LOG_TAG, "", tr, args);
+    }
+
+    public static void w(String msg, Throwable tr, Object... args) {
+        w(LOG_TAG, msg, tr, args);
+    }
+
+    public static void w(String tag, String msg, Throwable tr, Object... args) {
+        log(Log.WARN, TextUtils.isEmpty(tag) ? LOG_TAG : tag, tr, msg, args);
+    }
+
+    public static void e(String msg, Object... args) {
+        e(LOG_TAG, msg, msg);
+    }
+
+    public static void e(String tag, String msg, Object... args) {
+        e(tag, msg, null, args);
+    }
+
+    public static void e(String msg, Throwable tr, Object... args) {
+        e(LOG_TAG, msg, tr, args);
+    }
+
+    public static void e(String tag, String msg, Throwable tr, Object... args) {
+        log(Log.ERROR, TextUtils.isEmpty(tag) ? LOG_TAG : tag, tr, msg, args);
     }
 
     private static void log(int priority, String tag, Throwable ex, String message, Object... args) {
         if (!DISABLED) {
-            if (args.length > 0) {
+            if (args.length > 0)
                 message = String.format(message, args);
-            }
 
             String var4;
             if (ex == null) {

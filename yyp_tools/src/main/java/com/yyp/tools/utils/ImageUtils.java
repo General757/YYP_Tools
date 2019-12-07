@@ -552,7 +552,7 @@ public class ImageUtils {
 
     public static String modifyImageTransparent(Application app, String rootPath, String sourceImg, int number) {
         try {
-            String photoDir = FilePathUtil.getInstance().getFileDir(app, FilePathUtil.FileType.TEMP);
+            String photoDir = FilePathUtils.getInstance().getFileDir(app, FilePathUtils.FileType.TEMP);
             Bitmap sourceBit = setTransparentBitmap(BitmapFactory.decodeFile(sourceImg), number);
             return saveToFile(app, rootPath, photoDir, true, sourceBit);
         } catch (Exception e) {

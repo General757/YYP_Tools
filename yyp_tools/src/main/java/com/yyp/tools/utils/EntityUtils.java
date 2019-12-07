@@ -12,7 +12,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * Created by YanYan on 2019/9/11.
+ * Created by generalYan on 2019/9/11.
  * 实体对象与Map转换
  */
 public class EntityUtils {

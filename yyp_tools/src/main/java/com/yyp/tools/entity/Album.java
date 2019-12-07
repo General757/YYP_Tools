@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  */
 public class Album implements Serializable {
 

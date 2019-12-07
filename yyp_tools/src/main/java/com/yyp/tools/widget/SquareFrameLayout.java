@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  * 正方形控件
  */
 public class SquareFrameLayout extends FrameLayout implements SizeChangedNotifier {

@@ -1,5 +1,19 @@
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
+ * <p>
+ * Copyright 2017 JessYan
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  * <p>
  * Copyright 2017 JessYan
  * <p>
@@ -73,8 +87,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Point;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -105,10 +117,6 @@ import java.util.List;
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class DeviceUtils {
-    // 手机网络类型
-    public static final int NETTYPE_WIFI = 0x01;
-    public static final int NETTYPE_CMWAP = 0x02;
-    public static final int NETTYPE_CMNET = 0x03;
 
     public static boolean GTE_HC;
     public static boolean GTE_ICS;
@@ -316,22 +324,6 @@ public class DeviceUtils {
         else if (GTE_ICS) {
             flag = ViewConfiguration.get(context).hasPermanentMenuKey();
         } else
-            flag = false;
-        return flag;
-    }
-
-    /**
-     * 当前是否有网
-     *
-     * @param context
-     * @return
-     */
-    public static boolean hasInternet(Context context) {
-        boolean flag;
-        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (manager != null && manager.getActiveNetworkInfo() != null)
-            flag = true;
-        else
             flag = false;
         return flag;
     }
@@ -675,30 +667,6 @@ public class DeviceUtils {
     }
 
     /**
-     * wifi是否开启
-     *
-     * @param context
-     * @return
-     */
-    public static boolean isWifiOpen(Context context) {
-        boolean isWifiConnect = false;
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        // check the networkInfos numbers
-        NetworkInfo[] networkInfos = cm.getAllNetworkInfo();
-        for (int i = 0; i < networkInfos.length; i++) {
-            if (networkInfos[i].getState() == NetworkInfo.State.CONNECTED) {
-                if (networkInfos[i].getType() == ConnectivityManager.TYPE_MOBILE) {
-                    isWifiConnect = false;
-                }
-                if (networkInfos[i].getType() == ConnectivityManager.TYPE_WIFI) {
-                    isWifiConnect = true;
-                }
-            }
-        }
-        return isWifiConnect;
-    }
-
-    /**
      * 卸载软件
      *
      * @param context
@@ -789,47 +757,6 @@ public class DeviceUtils {
         intent.putExtra(Intent.EXTRA_SUBJECT, "分享：" + title);
         intent.putExtra(Intent.EXTRA_TEXT, title + " " + url);
         context.startActivity(Intent.createChooser(intent, "选择分享"));
-    }
-
-    /**
-     * 获取当前网络类型
-     *
-     * @return 0：没有网络 1：WIFI网络 2：WAP网络 3：NET网络
-     */
-    public static int getNetworkType(Context context) {
-        int netType = 0;
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo == null) {
-            return netType;
-        }
-        int nType = networkInfo.getType();
-        if (nType == ConnectivityManager.TYPE_MOBILE) {
-            String extraInfo = networkInfo.getExtraInfo();
-            if (extraInfo != null && !extraInfo.isEmpty()) {
-                if (extraInfo.equalsIgnoreCase("cmnet")) {
-                    netType = NETTYPE_CMNET;
-                } else {
-                    netType = NETTYPE_CMWAP;
-                }
-            }
-        } else if (nType == ConnectivityManager.TYPE_WIFI) {
-            netType = NETTYPE_WIFI;
-        }
-        return netType;
-    }
-
-    public static boolean netIsConnected(Context context) {
-        ConnectivityManager connectMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        //手机网络连接状态
-        NetworkInfo mobNetInfo = connectMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        //WIFI连接状态
-        NetworkInfo wifiNetInfo = connectMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected()) {
-            //当前无可用的网络
-            return false;
-        }
-        return true;
     }
 
     /**

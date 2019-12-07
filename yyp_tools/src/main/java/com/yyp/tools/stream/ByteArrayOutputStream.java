@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by YanYan on 2019/10/11.
+ * Created by generalYan on 2019/10/11.
  */
 public class ByteArrayOutputStream extends OutputStream {
     private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];

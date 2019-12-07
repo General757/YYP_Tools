@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Scroller;
 
 /**
- * Created by YanYan on 2018/12/24.
+ * Created by generalYan on 2018/12/24.
  * 只能点击不可滑动
  */
 

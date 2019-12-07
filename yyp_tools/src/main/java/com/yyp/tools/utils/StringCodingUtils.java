@@ -21,7 +21,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 /**
- * Created by YanYan on 2019/10/11.
+ * Created by generalYan on 2019/10/11.
  * 字符串编码工具
  */
 public class StringCodingUtils {

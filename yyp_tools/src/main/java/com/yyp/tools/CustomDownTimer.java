@@ -5,7 +5,7 @@ import android.os.Message;
 import android.os.SystemClock;
 
 /**
- * Created by YanYan on 2019/9/26.
+ * Created by generalYan on 2019/9/26.
  * 倒计时-工具
  * start()、 cancel()、 pause()、resume()
  */

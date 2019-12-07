@@ -14,11 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * Created by YanYan on 2019/1/12.
+ * Created by generalYan on 2019/1/12.
  * 日期时间相关的工具类
  */
 
@@ -90,6 +91,34 @@ public class DateTimeUtils {
      */
     private static String format(Date date) {
         return format(date, getDatePattern());
+    }
+
+    public static String getTime(long timeInMillis, SimpleDateFormat dateFormat) {
+        return dateFormat.format(new Date(timeInMillis));
+    }
+
+    public static String dtFormat(Date date, String dateFormat) {
+        return getFormat(dateFormat).format(date);
+    }
+
+    private static SimpleDateFormat getFormat(String format) {
+        return new SimpleDateFormat(format);
+    }
+
+    public static String getTime(long timeInMillis) {
+        return getTime(timeInMillis, getFormat(FORMAT_FULL));
+    }
+
+    public static long getCurrentTimeInLong() {
+        return System.currentTimeMillis();
+    }
+
+    public static String getCurrentTimeInString() {
+        return getTime(getCurrentTimeInLong());
+    }
+
+    public static String getCurrentTimeInString(SimpleDateFormat dateFormat) {
+        return getTime(getCurrentTimeInLong(), dateFormat);
     }
 
     /**
@@ -288,8 +317,7 @@ public class DateTimeUtils {
      * @return 用户时区的时间描述.
      * @throws ParseException 时间转换异常
      */
-    public static String getUserZoneString(final String strUtcTime,
-                                           final String strInFmt, final String strOutFmt)
+    public static String getUserZoneString(final String strUtcTime, final String strInFmt, final String strOutFmt)
             throws ParseException {
         if (StringUtils.isNull(strUtcTime)) {
             throw new NullPointerException("参数strDate不能为空");
@@ -327,8 +355,7 @@ public class DateTimeUtils {
      * @throws ParseException 时间转换异常
      */
     @SuppressWarnings("deprecation")
-    public static long getUserZoneMillis(final String strUtcTime,
-                                         final String strInFmt) throws ParseException {
+    public static long getUserZoneMillis(final String strUtcTime, final String strInFmt) throws ParseException {
         if (StringUtils.isNull(strUtcTime)) {
             throw new NullPointerException("参数strUtcTime不能为空");
         } else if (StringUtils.isNull(strInFmt)) {
@@ -350,8 +377,7 @@ public class DateTimeUtils {
      * @return 指定时间字符串距离1970-01-01的毫秒数
      * @throws ParseException 时间转换异常
      */
-    public static long parseMillis(final String strDate, final String strInFmt)
-            throws ParseException {
+    public static long parseMillis(final String strDate, final String strInFmt) throws ParseException {
         if (StringUtils.isNull(strDate)) {
             throw new NullPointerException("参数strDate不能为空");
         } else if (StringUtils.isNull(strInFmt)) {
@@ -973,5 +999,262 @@ public class DateTimeUtils {
 
     public static long getSystemTimeDifference(long startTime, long endTime) {//时间差
         return (endTime - startTime) / 1000;
+    }
+
+    //日期差
+    public static int differentDays(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+        int day1 = cal1.get(Calendar.DAY_OF_YEAR);
+        int day2 = cal2.get(Calendar.DAY_OF_YEAR);
+        int year1 = cal1.get(Calendar.YEAR);
+        int year2 = cal2.get(Calendar.YEAR);
+        if (year1 == year2) {
+            LogUtils.i("判断day2 - day1 : " + (day2 - day1));
+            return day2 - day1;
+        } else {
+            int timeDistance = 0;
+
+            for (int i = year1; i < year2; ++i) {
+                if ((i % 4 != 0 || i % 100 == 0) && i % 400 != 0) {
+                    timeDistance += 365;
+                } else {
+                    timeDistance += 366;
+                }
+            }
+
+            return timeDistance + (day2 - day1);
+        }
+    }
+
+    public static String dateToString(Date date, String pattern) throws Exception {
+        return (new SimpleDateFormat(pattern)).format(date);
+    }
+
+    public static Date stringToDate(String dateStr, String pattern) throws Exception {
+        return (new SimpleDateFormat(pattern)).parse(dateStr);
+    }
+
+    public static String formatDate(Date date, String type) {
+        try {
+            SimpleDateFormat df = new SimpleDateFormat(type);
+            return df.format(date);
+        } catch (Exception var3) {
+            var3.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Date parseDate(String dateStr, String type) {
+        SimpleDateFormat df = new SimpleDateFormat(type);
+        Date date = null;
+
+        try {
+            date = df.parse(dateStr);
+        } catch (ParseException var5) {
+            var5.printStackTrace();
+        }
+
+        return date;
+    }
+
+    public static int getDateYear(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return c.get(Calendar.YEAR);
+    }
+
+    public static int getDateMonth(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return c.get(Calendar.MONTH) + 1;
+    }
+
+    public static int getDateDay(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return c.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static String translateDate(Long time) {
+        long oneDay = 86400000L;
+        Calendar current = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.YEAR, current.get(Calendar.YEAR));
+        today.set(Calendar.MONTH, current.get(Calendar.MONTH));
+        today.set(Calendar.DAY_OF_MONTH, current.get(Calendar.DAY_OF_MONTH));
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        long todayStartTime = today.getTimeInMillis();
+        if (time >= todayStartTime && time < todayStartTime + oneDay) {
+            return "今天";
+        } else if (time >= todayStartTime - oneDay && time < todayStartTime) {
+            return "昨天";
+        } else if (time >= todayStartTime - oneDay * 2L && time < todayStartTime - oneDay) {
+            return "前天";
+        } else if (time > todayStartTime + oneDay) {
+            return "将来某一天";
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(time);
+            return dateFormat.format(date);
+        }
+    }
+
+    public static String[] translateChatDate(Date paramDate) {
+        String[] str = new String[2];
+        long l = paramDate.getTime();
+        Calendar localCalendar = GregorianCalendar.getInstance();
+        localCalendar.setTime(paramDate);
+        int year = localCalendar.get(Calendar.YEAR);
+        String hhmm = (new SimpleDateFormat("HH:mm", Locale.CHINA)).format(paramDate);
+        if (!isSameYear(year)) {
+            String paramDate2str = (new SimpleDateFormat("yyyy.MM.dd", Locale.CHINA)).format(paramDate);
+            str[0] = paramDate2str;
+            str[1] = hhmm;
+            return str;
+        } else {
+            if (isSameDay(l)) {
+                str[0] = "今天";
+            } else if (isYesterday(l)) {
+                str[0] = "昨天";
+            } else if (isBeforeYesterday(l)) {
+                str[0] = "前天";
+            } else {
+                str[0] = (new SimpleDateFormat("M.d", Locale.CHINA)).format(paramDate);
+            }
+
+            str[1] = hhmm;
+            return str;
+        }
+    }
+
+    private static TimeInfo getTodayStartAndEndTime() {
+        Calendar localCalendar1 = Calendar.getInstance();
+        localCalendar1.set(Calendar.HOUR_OF_DAY, 0);
+        localCalendar1.set(Calendar.MINUTE, 0);
+        localCalendar1.set(Calendar.SECOND, 0);
+        localCalendar1.set(Calendar.MILLISECOND, 0);
+        Date localDate1 = localCalendar1.getTime();
+        long l1 = localDate1.getTime();
+        Calendar localCalendar2 = Calendar.getInstance();
+        localCalendar2.set(Calendar.HOUR_OF_DAY, 23);
+        localCalendar2.set(Calendar.MINUTE, 59);
+        localCalendar2.set(Calendar.SECOND, 59);
+        localCalendar2.set(Calendar.MILLISECOND, 999);
+        Date localDate2 = localCalendar2.getTime();
+        long l2 = localDate2.getTime();
+        TimeInfo localTimeInfo = new TimeInfo();
+        localTimeInfo.setStartTime(l1);
+        localTimeInfo.setEndTime(l2);
+        return localTimeInfo;
+    }
+
+    private static TimeInfo getYesterdayStartAndEndTime() {
+        Calendar localCalendar1 = Calendar.getInstance();
+        localCalendar1.add(Calendar.DAY_OF_MONTH, -1);
+        localCalendar1.set(Calendar.HOUR_OF_DAY, 0);
+        localCalendar1.set(Calendar.MINUTE, 0);
+        localCalendar1.set(Calendar.SECOND, 0);
+        localCalendar1.set(Calendar.MILLISECOND, 0);
+        Date localDate1 = localCalendar1.getTime();
+        long l1 = localDate1.getTime();
+        Calendar localCalendar2 = Calendar.getInstance();
+        localCalendar2.add(Calendar.DAY_OF_MONTH, -1);
+        localCalendar2.set(Calendar.HOUR_OF_DAY, 23);
+        localCalendar2.set(Calendar.MINUTE, 59);
+        localCalendar2.set(Calendar.SECOND, 59);
+        localCalendar2.set(Calendar.MILLISECOND, 999);
+        Date localDate2 = localCalendar2.getTime();
+        long l2 = localDate2.getTime();
+        TimeInfo localTimeInfo = new TimeInfo();
+        localTimeInfo.setStartTime(l1);
+        localTimeInfo.setEndTime(l2);
+        return localTimeInfo;
+    }
+
+    private static TimeInfo getBeforeYesterdayStartAndEndTime() {
+        Calendar localCalendar1 = Calendar.getInstance();
+        localCalendar1.add(Calendar.DAY_OF_MONTH, -2);
+        localCalendar1.set(Calendar.HOUR_OF_DAY, 0);
+        localCalendar1.set(Calendar.MINUTE, 0);
+        localCalendar1.set(Calendar.SECOND, 0);
+        localCalendar1.set(Calendar.MILLISECOND, 0);
+        Date localDate1 = localCalendar1.getTime();
+        long l1 = localDate1.getTime();
+        Calendar localCalendar2 = Calendar.getInstance();
+        localCalendar2.add(Calendar.DAY_OF_MONTH, -2);
+        localCalendar2.set(Calendar.HOUR_OF_DAY, 23);
+        localCalendar2.set(Calendar.MINUTE, 59);
+        localCalendar2.set(Calendar.SECOND, 59);
+        localCalendar2.set(Calendar.MILLISECOND, 999);
+        Date localDate2 = localCalendar2.getTime();
+        long l2 = localDate2.getTime();
+        TimeInfo localTimeInfo = new TimeInfo();
+        localTimeInfo.setStartTime(l1);
+        localTimeInfo.setEndTime(l2);
+        return localTimeInfo;
+    }
+
+    private static boolean isSameDay(long paramLong) {
+        TimeInfo localTimeInfo = getTodayStartAndEndTime();
+        return paramLong > localTimeInfo.getStartTime() && paramLong < localTimeInfo.getEndTime();
+    }
+
+    private static boolean isYesterday(long paramLong) {
+        TimeInfo localTimeInfo = getYesterdayStartAndEndTime();
+        return paramLong > localTimeInfo.getStartTime() && paramLong < localTimeInfo.getEndTime();
+    }
+
+    private static boolean isBeforeYesterday(long paramLong) {
+        TimeInfo localTimeInfo = getBeforeYesterdayStartAndEndTime();
+        return paramLong > localTimeInfo.getStartTime() && paramLong < localTimeInfo.getEndTime();
+    }
+
+    private static boolean isSameYear(int year) {
+        Calendar cal = Calendar.getInstance();
+        int CurYear = cal.get(Calendar.YEAR);
+        return CurYear == year;
+    }
+
+    public static boolean isToday(Long time) {
+        long oneDay = 86400000L;
+        Calendar current = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.YEAR, current.get(Calendar.YEAR));
+        today.set(Calendar.MONTH, current.get(Calendar.MONTH));
+        today.set(Calendar.DAY_OF_MONTH, current.get(Calendar.DAY_OF_MONTH));
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        long todayStartTime = today.getTimeInMillis();
+        return time >= todayStartTime && time < todayStartTime + oneDay;
+    }
+
+    private static class TimeInfo {
+        private long startTime;
+        private long endTime;
+
+        private TimeInfo() {
+        }
+
+        public long getStartTime() {
+            return this.startTime;
+        }
+
+        public void setStartTime(long paramLong) {
+            this.startTime = paramLong;
+        }
+
+        public long getEndTime() {
+            return this.endTime;
+        }
+
+        public void setEndTime(long paramLong) {
+            this.endTime = paramLong;
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.yyp.tools;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  * Java汉字转换为拼音
  */
 

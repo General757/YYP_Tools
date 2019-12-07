@@ -10,7 +10,7 @@ import java.io.File;
  * 压缩方法工具类
  * <p>
  * Author: nanchen Email: liushilin520@foxmail.com Date: 2017-03-08 9:03
- * Created by YanYan on 2018/12/29.
+ * Created by generalYan on 2018/12/29.
  */
 
 public class CompressHelper {

@@ -4,7 +4,7 @@ package com.yyp.tools;
  * 字符串相关工具类
  * <p>
  * Author: nanchen Email: liushilin520@foxmail.com Date: 2017-02-19 9:52
- * Created by YanYan on 2018/12/29.
+ * Created by generalYan on 2018/12/29.
  */
 
 public class CompressStringHelper {

@@ -9,7 +9,7 @@ import java.io.File;
 import java.math.BigDecimal;
 
 /**
- * Created by YanYan on 2018/12/25.
+ * Created by generalYan on 2018/12/25.
  * APP 缓存清理
  */
 public class AppCacheManager {

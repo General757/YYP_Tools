@@ -1,0 +1,39 @@
+/**①.发布到本地maven仓库*/
+//1、添加下面配置后，在Gradle projects窗口中:yyp_tool->Tasks中会多出一个upload目录，里面就有一个名为uploadArchives的task
+//2、Terminalz执行 ./gradlew uploadArchives
+
+apply plugin: 'maven'
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+//打包java文档的 task
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+//打包main目录下文件的 task
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+//配置需要上传到maven仓库的文件
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+
+//uploadArchives就是用于发布到仓库的task
+uploadArchives {
+    repositories.mavenDeployer {
+        // 配置本地仓库路径，项目根目录下的repository目录中
+        repository(url: uri('../repository'))
+        pom.groupId = GROUP// 唯一标识（通常为模块包名，也可以任意）
+        pom.artifactId = PROJECT_NAME      // 项目名称（通常为类库模块名称，也可以任意）
+        pom.version = android.defaultConfig.versionName // 版本号
+    }
+}

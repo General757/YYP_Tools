@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  * 手机分辨率工具类
  */
 public class DensityUtils {

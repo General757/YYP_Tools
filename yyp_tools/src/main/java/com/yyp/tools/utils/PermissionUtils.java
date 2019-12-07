@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.yyp.tools.R;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  * 检查权限/权限数组-request权限
  */
 public class PermissionUtils {

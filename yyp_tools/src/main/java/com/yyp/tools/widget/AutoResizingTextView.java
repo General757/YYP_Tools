@@ -24,12 +24,11 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.yyp.tools.bitmap.BitmapGenerator;
 import com.yyp.tools.bitmap.text.TextBitmap;
 import com.yyp.tools.bitmap.text.TextBitmapGenerator;
-import com.yyp.tools.utils.ChineseUtil;
+import com.yyp.tools.utils.ChineseUtils;
 import com.yyp.tools.utils.CompatUtil;
 import com.yyp.tools.utils.LogUtils;
 import com.yyp.tools.utils.StringUtils;
@@ -487,7 +486,7 @@ public class AutoResizingTextView extends AppCompatTextView implements BitmapGen
                 continue;
             }
             String s = text.substring(i, i + skip);
-            if (ChineseUtil.isChinese(s)) {
+            if (ChineseUtils.isChinese(s)) {
                 chinese++;
             } else {
                 letter++;

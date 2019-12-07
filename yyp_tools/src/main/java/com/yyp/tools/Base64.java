@@ -1,7 +1,7 @@
 package com.yyp.tools;
 
 /**
- * Created by YanYan on 2019/5/7.
+ * Created by generalYan on 2019/5/7.
  */
 
 public final class Base64 {

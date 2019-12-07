@@ -2,14 +2,14 @@ package com.yyp.tools.widget;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  */
-public class MarqueeText extends TextView {
+public class MarqueeText extends AppCompatTextView {
 
     public MarqueeText(Context context) {
         this(context, null);

@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import java.text.DecimalFormat;
 
 /**
- * Created by YanYan on 2019/1/16.
+ * Created by generalYan on 2019/1/16.
  * <p>
  * 数字...转换器-工具
  */

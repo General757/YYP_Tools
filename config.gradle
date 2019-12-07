@@ -15,16 +15,26 @@ ext {
     ]
 
     version = [
-            androidSupportSdkVersion: "28.0.0",
+            androidSupportSdkVersion  : "28.0.0",
+            runnerSdkVersion          : "1.0.2",
+            espressoSdkVersion        : "3.0.2",
+            junitSdkVersion           : "4.12",
+            layoutConstraintSdkVersion: "1.1.3",
     ]
 
     dependencies = [
             //support
-            "appcompat-v7"             : "com.android.support:appcompat-v7:${version["androidSupportSdkVersion"]}",
-            "design"                   : "com.android.support:design:${version["androidSupportSdkVersion"]}",
-            "support-v4"               : "com.android.support:support-v4:${version["androidSupportSdkVersion"]}",
-            "cardview-v7"              : "com.android.support:cardview-v7:${version["androidSupportSdkVersion"]}",
-            "annotations"              : "com.android.support:support-annotations:${version["androidSupportSdkVersion"]}",
-            "recyclerview-v7"          : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
+            "appcompat-v7"     : "com.android.support:appcompat-v7:${version["androidSupportSdkVersion"]}",
+            "design"           : "com.android.support:design:${version["androidSupportSdkVersion"]}",
+            "support-v4"       : "com.android.support:support-v4:${version["androidSupportSdkVersion"]}",
+            "cardview-v7"      : "com.android.support:cardview-v7:${version["androidSupportSdkVersion"]}",
+            "annotations"      : "com.android.support:support-annotations:${version["androidSupportSdkVersion"]}",
+            "recyclerview-v7"  : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
+            "constraint-layout": "com.android.support.constraint:constraint-layout:${version["layoutConstraintSdkVersion"]}",
+            "runner"           : "com.android.support.test:runner:${version["runnerSdkVersion"]}",
+            "espresso-core"    : "com.android.support.test.espresso:espresso-core:${version["espressoSdkVersion"]}",
+            "espresso-contrib" : "com.android.support.test.espresso:espresso-contrib:${version["espressoSdkVersion"]}",
+            "espresso-intents" : "com.android.support.test.espresso:espresso-intents:${version["espressoSdkVersion"]}",
+            "junit"            : "junit:junit:${version["junitSdkVersion"]}",
     ]
 }

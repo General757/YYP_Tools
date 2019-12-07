@@ -21,7 +21,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 /**
- * Created by YanYan on 2018/11/21.
+ * Created by generalYan on 2018/11/21.
  * 权限请求页适配，不同手机系统跳转到不同的权限请求页
  */
 public class PermissionPageUtils {

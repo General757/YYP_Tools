@@ -1,0 +1,46 @@
+/**②.发布到私有服务器maven仓库*/
+//nexus:1.打开终端机输入以下命令启动(bogon:~ bubing$ /Users/bubing/SoftWare/nexus-3.19.1-01-mac/nexus-3.19.1-01/bin/nexus start)
+//nexus:2.打开浏览器输入以下网址，如果能成功访问即启动成功～(http://localhost:8081/ )
+//1、添加下面配置后，在Gradle projects窗口中:yyp_tool->Tasks中会多出一个upload目录，里面就有一个名为uploadArchives的task
+//2、Terminalz执行 ./gradlew uploadArchives
+
+apply plugin: 'maven'
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+//打包java文档的 task
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+//打包main目录下文件的 task
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+//配置需要上传到maven仓库的文件
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+
+//上传到Maven仓库的task
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //指定maven仓库urlhttp://localhost:8081/repository/nexus
+            repository(url: "http://localhost:8081/repository/nexus/") {
+                //nexus登录默认用户名和密码
+                authentication(userName: "admin", password: "yan647717")
+            }
+            pom.groupId = GROUP// 唯一标识（通常为模块包名，也可以任意）
+            pom.artifactId = PROJECT_NAME      // 项目名称（通常为类库模块名称，也可以任意）
+            pom.version = android.defaultConfig.versionName // 版本号
+        }
+    }
+}

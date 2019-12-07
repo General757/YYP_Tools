@@ -1,1 +1,1 @@
-include ':app', ':yyp_tools'
+include ':app', ':yyp_tools', ':yyp_secret', ':yyp_aps'

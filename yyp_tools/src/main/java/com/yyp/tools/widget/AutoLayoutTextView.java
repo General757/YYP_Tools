@@ -27,7 +27,7 @@ import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.yyp.tools.utils.ChineseUtil;
+import com.yyp.tools.utils.ChineseUtils;
 import com.yyp.tools.utils.CompatUtil;
 import com.yyp.tools.utils.LogUtils;
 
@@ -485,7 +485,7 @@ public class AutoLayoutTextView extends AppCompatTextView {
                 continue;
             }
             String s = text.substring(i, i + skip);
-            if (ChineseUtil.isChinese(s)) {
+            if (ChineseUtils.isChinese(s)) {
                 chinese++;
             } else {
                 letter++;

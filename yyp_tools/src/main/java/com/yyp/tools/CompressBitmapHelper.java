@@ -21,7 +21,7 @@ import java.io.InputStream;
  * 图片处理工具类
  * <p>
  * Author: nanchen Email: liushilin520@foxmail.com Date: 2017-03-08 9:03
- * Created by YanYan on 2018/12/29.
+ * Created by generalYan on 2018/12/29.
  */
 
 public class CompressBitmapHelper {

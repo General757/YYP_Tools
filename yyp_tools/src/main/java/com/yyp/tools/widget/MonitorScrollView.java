@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.ScrollView;
 
 /**
- * Created by YanYan on 2019/4/15.
+ * Created by generalYan on 2019/4/15.
  * 滚动位置监听的ScrollView
  */
 

@@ -6,7 +6,7 @@ import android.view.MotionEvent;
 import android.widget.ListView;
 
 /**
- * Created by yanyan on 2018/9/14.
+ * Created by generalYan on 2018/9/14.
  * 不可滚动ListView
  */
 

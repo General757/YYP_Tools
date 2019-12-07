@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import com.yyp.tools.R;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  * 矩形控件
  */
 public class RectangleFrameLayout extends FrameLayout implements SizeChangedNotifier {

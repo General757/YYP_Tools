@@ -18,7 +18,7 @@ import android.view.View;
 import com.yyp.tools.R;
 
 /**
- * Created by YanYan on 2019/8/19.
+ * Created by generalYan on 2019/8/19.
  * 关注-自定义view
  */
 public class FollowAnimView extends View {

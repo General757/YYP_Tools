@@ -9,7 +9,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * Created by YanYan on 2019/9/11.
+ * Created by generalYan on 2019/9/11.
  * RSA签名验签类
  */
 public class RSASignatureUtils {

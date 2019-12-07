@@ -8,7 +8,7 @@ import android.util.Log;
 import java.io.File;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  * SD工具
  */
 public class SdcardUtils {
@@ -66,4 +66,91 @@ public class SdcardUtils {
         return isAvailable;
     }
 
+    public static String getSDPath() {
+        File sdDir = null;
+        boolean sdCardExist = Environment.getExternalStorageState().equals("mounted");
+        if (sdCardExist) {
+            sdDir = Environment.getExternalStorageDirectory();
+        }
+
+        return sdDir != null ? sdDir.toString() : "";
+    }
+
+    public static boolean isSDCardExist() {
+        return Environment.getExternalStorageState().equals("mounted");
+    }
+
+    public static long getAvailableInternalMemorySize() {
+        File path = Environment.getDataDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        long blockSize = (long) stat.getBlockSize();
+        long availableBlocks = (long) stat.getAvailableBlocks();
+        return availableBlocks * blockSize;
+    }
+
+    public static long getTotalInternalMemorySize() {
+        File path = Environment.getDataDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        long blockSize = (long) stat.getBlockSize();
+        long totalBlocks = (long) stat.getBlockCount();
+        return totalBlocks * blockSize;
+    }
+
+    public static long getAvailableExternalMemorySize() {
+        if (isSDCardExist()) {
+            File path = Environment.getExternalStorageDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = (long) stat.getBlockSize();
+            long availableBlocks = (long) stat.getAvailableBlocks();
+            return availableBlocks * blockSize;
+        } else {
+            return -1L;
+        }
+    }
+
+    public static long getTotalExternalMemorySize() {
+        if (isSDCardExist()) {
+            File path = Environment.getExternalStorageDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = (long) stat.getBlockSize();
+            long totalBlocks = (long) stat.getBlockCount();
+            return totalBlocks * blockSize;
+        } else {
+            return -1L;
+        }
+    }
+
+    public static long getTotalExternal_SDMemorySize() {
+        if (isSDCardExist()) {
+            File path = Environment.getExternalStorageDirectory();
+            File externalSD = new File(path.getPath() + "/external_sd");
+            if (externalSD.exists() && externalSD.isDirectory()) {
+                StatFs stat = new StatFs(path.getPath() + "/external_sd");
+                long blockSize = (long) stat.getBlockSize();
+                long totalBlocks = (long) stat.getBlockCount();
+                return getTotalExternalMemorySize() != -1L && getTotalExternalMemorySize() != totalBlocks * blockSize ? totalBlocks * blockSize : -1L;
+            } else {
+                return -1L;
+            }
+        } else {
+            return -1L;
+        }
+    }
+
+    public static long getAvailableExternal_SDMemorySize() {
+        if (isSDCardExist()) {
+            File path = Environment.getExternalStorageDirectory();
+            File externalSD = new File(path.getPath() + "/external_sd");
+            if (externalSD.exists() && externalSD.isDirectory()) {
+                StatFs stat = new StatFs(path.getPath() + "/external_sd");
+                long blockSize = (long) stat.getBlockSize();
+                long availableBlocks = (long) stat.getAvailableBlocks();
+                return getAvailableExternalMemorySize() != -1L && getAvailableExternalMemorySize() != availableBlocks * blockSize ? availableBlocks * blockSize : -1L;
+            } else {
+                return -1L;
+            }
+        } else {
+            return -1L;
+        }
+    }
 }

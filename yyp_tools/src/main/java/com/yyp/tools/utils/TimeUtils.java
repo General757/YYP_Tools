@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by YanYan on 2019/10/17.
+ * Created by generalYan on 2019/10/17.
  */
 public class TimeUtils {
     public static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

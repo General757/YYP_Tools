@@ -4,14 +4,19 @@ import org.apache.commons.codec.binary.Base64;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -25,7 +30,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 /**
- * Created by YanYan on 2019/9/11.
+ * Created by generalYan on 2019/9/11.
  */
 
 public class RSAEncryptUtils {
@@ -314,5 +319,58 @@ public class RSAEncryptUtils {
             }
         }
         return stringBuilder.toString();
+    }
+
+    private static PublicKey getPublicKeyFromX509(String bysKey) throws NoSuchAlgorithmException, Exception {
+        byte[] decodedKey = Base64Utils.decode(bysKey);
+        X509EncodedKeySpec x509 = new X509EncodedKeySpec(decodedKey);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA", "BC");
+        return keyFactory.generatePublic(x509);
+    }
+
+    public static PrivateKey getPrivateKey(String key) throws Exception {
+        byte[] keyBytes = Base64Utils.decode(key);
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA", "BC");
+        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+        return privateKey;
+    }
+
+    public static String encrypt(String content, String pub_key) {
+        try {
+            PublicKey pubkey = getPublicKeyFromX509(pub_key);
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", "BC");
+            cipher.init(1, pubkey);
+            byte[] plaintext = content.getBytes("UTF-8");
+            byte[] output = cipher.doFinal(plaintext);
+            String s = Base64Utils.encode(output);
+            return s;
+        } catch (Exception var7) {
+            return null;
+        }
+    }
+
+    public static String decrypt(String content, String private_key, String input_charset) throws Exception {
+        PrivateKey prikey = getPrivateKey(private_key);
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", "BC");
+        cipher.init(2, prikey);
+        InputStream ins = new ByteArrayInputStream(Base64Utils.decode(content));
+        ByteArrayOutputStream writer = new ByteArrayOutputStream();
+
+        int bufl;
+        byte[] block = null;
+        for (byte[] buf = new byte[128]; (bufl = ins.read(buf)) != -1; writer.write(cipher.doFinal(block))) {
+            if (buf.length == bufl) {
+                block = buf;
+            } else {
+                block = new byte[bufl];
+
+                for (int i = 0; i < bufl; ++i) {
+                    block[i] = buf[i];
+                }
+            }
+        }
+
+        return new String(writer.toByteArray(), input_charset);
     }
 }

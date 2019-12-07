@@ -227,7 +227,7 @@ public class FileUtil {
     }
 
     private String getImageFilePath(String desKey, int packageId, String imageUrl) {
-        DESUtil desUtil = new DESUtil(desKey);
+        DESUtils desUtil = new DESUtils(desKey);
         try {
             imageUrl = desUtil.encrypt(imageUrl);
         } catch (Exception e) {
@@ -758,7 +758,7 @@ public class FileUtil {
         byte buffer[] = new byte[1024];
         int len;
         try {
-            digest = MessageDigest.getInstance("MD5");
+            digest = MessageDigest.getInstance("MD5Utils");
             in = new FileInputStream(file);
             while ((len = in.read(buffer, 0, 1024)) != -1) {
                 digest.update(buffer, 0, len);
@@ -857,7 +857,7 @@ public class FileUtil {
 
     //水印图片保存到本地
     public static String getWaterMarkPath(Context mContext, Bitmap logoBitmap) {
-        String blendDir = FilePathUtil.getInstance().getFileDir(mContext, FilePathUtil.FileType.SETTINGS);
+        String blendDir = FilePathUtils.getInstance().getFileDir(mContext, FilePathUtils.FileType.SETTINGS);
         String logoWater = "WaterMark.png";  //水印缓存文件名
         File waterMark = new File(blendDir, logoWater);
         if (!waterMark.exists()) {
